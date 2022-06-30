@@ -14,7 +14,7 @@ class EstateProperty(models.Model):
     bestoffer=fields.Integer('Best Offer',compute='_computed_best_offer')
     description=fields.Char()
     expected_price=fields.Float(required=True)
-    selling_price=fields.Float(readonly=True ,copy=False)
+    selling_price=fields.Float( copy=False)
     bedrooms=fields.Integer('Bedrooms',default=2)
     living_area=fields.Integer()
     facades=fields.Integer()
@@ -34,6 +34,10 @@ class EstateProperty(models.Model):
 
     )
     accepted_in_global=fields.Integer(default=0)
+    _sql_constraints=[
+        ('check_expected_price','CHECK(expected_price>=0)','expected price should be a positve value'),
+        ('check_selling_price','CHECK(selling_price>=0','selling price should be a positive value')
+    ]
 
 
 
